@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EFDbLayer
 {
     public class Book
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
         public int Id { get; set; }
 
-        public string Title { get; set; }
+        [Required, MaxLength(256)]
+        public string Title { get; set; } = null!;
 
-        public int? AuthorId { get; set; }
+        public int AuthorId { get; set; }
 
-        public Author Author { get; set; }
+        public Author? Author { get; set; }
     }
 }
