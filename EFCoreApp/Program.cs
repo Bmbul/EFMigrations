@@ -1,5 +1,8 @@
-﻿using EFDbLayer;
+﻿
+
+using EFDbLayer;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 class Program
 {
@@ -12,11 +15,6 @@ class Program
             var authors = context.Authors.Include(x => x.Book);
 
             var books = context.Books.Include(x => x.Author);
-
-            var newBook = new Book() { Title = "Book Title" };
-            
-            context.Books.Add(newBook);
-            context.SaveChanges();
         }
     }
 }

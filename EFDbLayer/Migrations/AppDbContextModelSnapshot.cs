@@ -25,12 +25,9 @@ namespace EFDbLayer.Migrations
             modelBuilder.Entity("EFDbLayer.Author", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("BookId")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -40,8 +37,7 @@ namespace EFDbLayer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BookId")
-                        .IsUnique()
-                        .HasFilter("[BookId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Authors");
                 });
@@ -49,10 +45,7 @@ namespace EFDbLayer.Migrations
             modelBuilder.Entity("EFDbLayer.Book", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("AuthorId")
                         .HasColumnType("int");
@@ -71,7 +64,8 @@ namespace EFDbLayer.Migrations
                     b.HasOne("EFDbLayer.Book", "Book")
                         .WithOne("Author")
                         .HasForeignKey("EFDbLayer.Author", "BookId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Book");
                 });
