@@ -14,7 +14,9 @@ namespace EFDbLayer.Models
         //public ICollection<AuthorBook> AuthorBooks { get; set; }
 
 
-        public int AuthorId { get; set; }
-        public Author Author { get; set; }
+        //public int AuthorId { get; set; }
+        public ICollection<AuthorBook> AuthorBook { get; set; }
+
+        public Student Student { get; set; }    
     }
 }

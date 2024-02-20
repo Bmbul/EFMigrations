@@ -10,7 +10,7 @@ namespace EFDbLayer.Models
         [Required, MaxLength(128)]
         public string Name { get; set; } = null!;
 
-        //public ICollection<AuthorBook> AuthorBooks { get; set; }
+        public ICollection<AuthorBook> AuthorBooks { get; set; }
 
         public ICollection<Book> Books { get; set; }    
     }

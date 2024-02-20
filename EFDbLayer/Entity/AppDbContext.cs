@@ -7,34 +7,38 @@ namespace EFDbLayer.Entity
     public class AppDbContext : DbContext
     {
         public DbSet<Author> Authors { get; set; }
+
         public DbSet<Book> Books { get; set; }
-        //public DbSet<AuthorBook> AuthorBook { get; set; }
+
+        public DbSet<Student> Students { get; set; }
+
+        public DbSet<AuthorBook> AuthorBook { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Book>()
-                .HasOne(x=>x.Author)
-                .WithMany(x => x.Books)
-                .HasForeignKey(x=>x.AuthorId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //One To Many Relations -----------------------
+            //modelBuilder.Entity<Book>()
+            //    .HasOne(x=>x.Author)
+            //    .WithMany(x => x.Books)
+            //    .HasForeignKey(x=>x.AuthorId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Student>().HasMany(x => x.Books).WithOne(x => x.Student).OnDelete(DeleteBehavior.Cascade);
+            //Many to Many---------------------------------
+            modelBuilder.Entity<Author>().HasKey(a => a.Id);
 
+            modelBuilder.Entity<Book>().HasKey(a => a.Id);
+            modelBuilder.Entity<AuthorBook>().HasKey(k => new { k.AuthorId, k.BookId });
 
-            //Many to Many ---------------------------------
-            //modelBuilder.Entity<Author>().HasKey(a => a.Id);
-
-            //modelBuilder.Entity<Book>().HasKey(a => a.Id);
-            //modelBuilder.Entity<AuthorBook>().HasKey(k => new { k.AuthorId, k.BookId });
+            modelBuilder.Entity<AuthorBook>()
+                        .HasOne(ab => ab.Author)
+                        .WithMany(a => a.AuthorBooks)
+                        .HasForeignKey(ab => ab.AuthorId);
 
             //modelBuilder.Entity<AuthorBook>()
-            //            .HasOne(ab => ab.Author) 
-            //            .WithMany(a => a.AuthorBooks) 
-            //            .HasForeignKey(ab => ab.AuthorId); 
-
-            //modelBuilder.Entity<AuthorBook>()
-            //            .HasOne(ab => ab.Book) 
-            //            .WithMany(b => b.AuthorBooks) 
+            //            .HasOne(ab => ab.Book)
+            //            .WithMany(b => b.AuthorBook)
             //            .HasForeignKey(ab => ab.BookId);
 
 
