@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EFDbLayer
+namespace EFDbLayer.Models
 {
     public class Author
     {
@@ -10,6 +10,8 @@ namespace EFDbLayer
         [Required, MaxLength(128)]
         public string Name { get; set; } = null!;
 
-        public List<Book>? Books { get; set; }
+        //public ICollection<AuthorBook> AuthorBooks { get; set; }
+
+        public ICollection<Book> Books { get; set; }    
     }
 }

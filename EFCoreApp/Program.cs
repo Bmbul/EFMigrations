@@ -1,4 +1,5 @@
-﻿using EFDbLayer;
+﻿using EFDbLayer.Entity;
+
 using Microsoft.EntityFrameworkCore;
 
 class Program
@@ -7,9 +8,9 @@ class Program
     {
         using (var context = new AppDbContext())
         {
-            var authors = context.Authors.Include(x => x.Books);
+            //var authors = context.Authors.Include(x => x.AuthorBooks);
 
-            var books = context.Books.Include(x => x.Author);
+            //var books = context.Books.Include(x => x.AuthorBooks);
         }
     }
 }
